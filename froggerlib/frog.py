@@ -1,6 +1,7 @@
 from froggerlib.player_controllable import PlayerControllable
 import assets
 import pygame
+import math
 
 
 class Frog(PlayerControllable):
@@ -33,14 +34,25 @@ class Frog(PlayerControllable):
         self.setX(self._start_x)
         self.setY(self._start_y)
         return
+    
+    def move(self):
+        if not self.getRide():
+            self.setDesiredX(math.floor(self.getDesiredX()/32+0.5)*32)
+            self.setDesiredY(math.floor(self.getDesiredY()/32+0.5)*32)
+        super().move()
 
     def kill(self):
         if not self._is_dead:
+            if self.getRide():
+                riders = self.getRide().getRiders()
+                if self in riders:
+                    riders.remove(self)
+            self.setRide(None)
             self._is_dead = True
             self._death_frame = 0
             self._tick_divisor = 0
         return
-
+    
     def up(self):
         if self._is_dead or self.getY() <= 64:
             return

@@ -18,12 +18,15 @@ def init():
     global racer_right
     global truck
     global harvester
+    global win
+    global turts
     safe = sprites.image_at((270, 392, 32, 32))
     car = sprites.image_at((4, 238, 29, 19))
     racer_left = sprites.image_at((38, 234, 31, 27))
     racer_right = sprites.image_at((74, 234, 31, 27))
     truck = sprites.image_at((152, 238, 53, 19))
     harvester = sprites.image_at((112, 236, 27, 23))
+    win = sprites.image_at((90, 392, 32, 32))
     frog = [
         sprites.image_at((2, 2, 32, 32)),
         sprites.image_at((38, 2, 32, 32)),
@@ -51,4 +54,11 @@ def init():
     hedge = [
         sprites.image_at((2, 376, 64, 48)),
         sprites.image_at((70, 376, 16, 48)),
+    ]
+    turts = [
+        sprites.image_at((4, 308, 30, 26)),
+        sprites.image_at((38, 308, 30, 26)),
+        sprites.image_at((74, 308, 30, 26)),
+        sprites.image_at((115, 308, 30, 26)),
+        sprites.image_at((147, 308, 30, 26)),
     ]

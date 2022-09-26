@@ -1,4 +1,5 @@
 from froggerlib.movable import Movable
+import math
 
 class Rideable(Movable):
 
@@ -8,8 +9,11 @@ class Rideable(Movable):
         return
 
     def supports(self, other):
-        if self.overlapWithLocatable(other):
-
+        #if self.overlapWithLocatable(other):
+        if not other.getAlive():
+            return False
+        if other.getX() >= self.getX() and other.getX()+other.getWidth() <= self.getX()+self.getWidth()\
+            and other.getY() >= self.getY()-1 and other.getY()+other.getHeight() <= self.getY()+self.getHeight()+1:
             if other not in self.mRiders:
                 take_on = False
                 ride = other.getRide()
@@ -24,6 +28,9 @@ class Rideable(Movable):
 
                 if take_on:
                     self.mRiders.append(other)
+                    diff = math.floor((other.getX()-self.getX())/32+0.5)*32
+                    other.setX(self.getX()+diff)
+                    other.setDesiredX(other.getX())
                     other.setRide(self)
                     return True
         else:

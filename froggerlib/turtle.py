@@ -1,4 +1,5 @@
 from froggerlib.rideable import Rideable
+import assets
 import random
 
 class Turtle(Rideable):
