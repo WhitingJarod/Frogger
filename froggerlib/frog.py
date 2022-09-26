@@ -1,6 +1,7 @@
 from froggerlib.player_controllable import PlayerControllable
-import froggerlib.assets as assets
+import assets
 import pygame
+
 
 class Frog(PlayerControllable):
 
@@ -14,13 +15,13 @@ class Frog(PlayerControllable):
         self._death_frame = 0
         self._tick_divisor = 0
         return
-    
+
     def getAlive(self):
         return not self._is_dead
-    
+
     def getResetReady(self):
         return self._ready_to_reset
-    
+
     def reset(self):
         self._is_dead = False
         self._ready_to_reset = False
@@ -32,7 +33,7 @@ class Frog(PlayerControllable):
         self.setX(self._start_x)
         self.setY(self._start_y)
         return
-    
+
     def kill(self):
         if not self._is_dead:
             self._is_dead = True
@@ -46,42 +47,45 @@ class Frog(PlayerControllable):
         super().up()
         self._tick_divisor = 0
         self._frame = 1
-    
+
     def left(self):
         if self._is_dead or self.getX() <= 0:
             return
         super().left()
         self._tick_divisor = 0
         self._frame = 3
-    
+
     def down(self):
         if self._is_dead or self.getY() >= 14*32:
             return
         super().down()
         self._tick_divisor = 0
         self._frame = 5
-    
+
     def right(self):
         if self._is_dead or self.getX() >= 14*32:
             return
         super().right()
         self._tick_divisor = 0
         self._frame = 7
-    
+
     def draw(self, surface):
-        self._tick_divisor = (self._tick_divisor+1)%5
+        self._tick_divisor = (self._tick_divisor+1) % 5
         if self._is_dead:
-            if self._death_frame < len(assets.death_sprites):
-                surface.blit(assets.death_sprites[self._death_frame], (self.getX(), self.getY()))
+            if self._death_frame < len(assets.death):
+                surface.blit(
+                    assets.death[self._death_frame], (self.getX(), self.getY()))
                 if self._tick_divisor == 0:
                     self._death_frame += 1
             else:
                 self._ready_to_reset = True
-                surface.blit(assets.death_sprites[len(assets.death_sprites)-1], (self.getX(), self.getY()))
+                surface.blit(assets.death[len(
+                    assets.death)-1], (self.getX(), self.getY()))
         else:
             if self._frame % 2 == 1 and self._tick_divisor == 0:
                 self._frame -= 1
-            surface.blit(assets.frog_sprites[self._frame], (self.getX(), self.getY()))
+            surface.blit(
+                assets.frog[self._frame], (self.getX(), self.getY()))
         return
 
     def __str__(self):
@@ -90,6 +94,7 @@ class Frog(PlayerControllable):
 
     def __repr__(self):
         return str(self)
+
 
 def test():
     f = Frog()
@@ -105,6 +110,7 @@ def test():
         print(f)
 
     return
+
 
 if __name__ == "__main__":
     test()
