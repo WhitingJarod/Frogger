@@ -214,39 +214,40 @@ class Frogger():
             surface.blit(assets.lives, (i*24+16*5+4, self._height-32))
         if self._frog.getLives() < 0:
             offset = 10*16
-            surface.blit(assets.letters[2]["G"], (16*1 + offset, 16))
-            surface.blit(assets.letters[2]["A"], (16*2 + offset, 16))
-            surface.blit(assets.letters[2]["M"], (16*3 + offset, 16))
-            surface.blit(assets.letters[2]["E"], (16*4 + offset, 16))
-            surface.blit(assets.letters[2]["O"], (16*6 + offset, 16))
-            surface.blit(assets.letters[2]["V"], (16*7 + offset, 16))
-            surface.blit(assets.letters[2]["E"], (16*8 + offset, 16))
-            surface.blit(assets.letters[2]["R"], (16*9 + offset, 16))
-        else:
-            surface.blit(assets.letters[0]["P"], (16*0 + self._width*.25-16*3, 0))
-            surface.blit(assets.letters[0]["O"], (16*1 + self._width*.25-16*3, 0))
-            surface.blit(assets.letters[0]["I"], (16*2 + self._width*.25-16*3, 0))
-            surface.blit(assets.letters[0]["N"], (16*3 + self._width*.25-16*3, 0))
-            surface.blit(assets.letters[0]["T"], (16*4 + self._width*.25-16*3, 0))
-            surface.blit(assets.letters[0]["S"], (16*5 + self._width*.25-16*3, 0))
+            surface.blit(assets.letters[1]["G"], (16*1 + offset, 0))
+            surface.blit(assets.letters[1]["A"], (16*2 + offset, 0))
+            surface.blit(assets.letters[1]["M"], (16*3 + offset, 0))
+            surface.blit(assets.letters[1]["E"], (16*4 + offset, 0))
+            surface.blit(assets.letters[1]["O"], (16*6 + offset, 0))
+            surface.blit(assets.letters[1]["V"], (16*7 + offset, 0))
+            surface.blit(assets.letters[1]["E"], (16*8 + offset, 0))
+            surface.blit(assets.letters[1]["R"], (16*9 + offset, 0))
 
-            surface.blit(assets.letters[0]["T"], (16*0 + self._width*.75-16*2.5, 0))
-            surface.blit(assets.letters[0]["O"], (16*1 + self._width*.75-16*2.5, 0))
-            surface.blit(assets.letters[0]["T"], (16*2 + self._width*.75-16*2.5, 0))
-            surface.blit(assets.letters[0]["A"], (16*3 + self._width*.75-16*2.5, 0))
-            surface.blit(assets.letters[0]["L"], (16*4 + self._width*.75-16*2.5, 0))
-            digits = str(self._frog.getScore())
-            for d in range(5, -1, -1):
-                digit = "0"
-                if d < len(digits):
-                    digit = digits[len(digits)-d-1]
-                surface.blit(assets.letters[2][digit], (self._width*.25+16*(5-d) - 16*3, 16))
-            digits = str(self._frog.getTotalScore())
-            for d in range(5, -1, -1):
-                digit = "0"
-                if d < len(digits):
-                    digit = digits[len(digits)-d-1]
-                surface.blit(assets.letters[2][digit], (self._width*.75+16*(5-d) - 16*3, 16))
+        surface.blit(assets.letters[0]["P"], (16*0 + self._width*.25-16*3, 16))
+        surface.blit(assets.letters[0]["O"], (16*1 + self._width*.25-16*3, 16))
+        surface.blit(assets.letters[0]["I"], (16*2 + self._width*.25-16*3, 16))
+        surface.blit(assets.letters[0]["N"], (16*3 + self._width*.25-16*3, 16))
+        surface.blit(assets.letters[0]["T"], (16*4 + self._width*.25-16*3, 16))
+        surface.blit(assets.letters[0]["S"], (16*5 + self._width*.25-16*3, 16))
+
+        surface.blit(assets.letters[0]["T"], (16*0 + self._width*.75-16*2.5, 16))
+        surface.blit(assets.letters[0]["O"], (16*1 + self._width*.75-16*2.5, 16))
+        surface.blit(assets.letters[0]["T"], (16*2 + self._width*.75-16*2.5, 16))
+        surface.blit(assets.letters[0]["A"], (16*3 + self._width*.75-16*2.5, 16))
+        surface.blit(assets.letters[0]["L"], (16*4 + self._width*.75-16*2.5, 16))
+        
+        digits = str(self._frog.getScore())
+        for d in range(5, -1, -1):
+            digit = "0"
+            if d < len(digits):
+                digit = digits[len(digits)-d-1]
+            surface.blit(assets.letters[2][digit], (self._width*.25+16*(5-d) - 16*3, 32))
+        digits = str(self._frog.getTotalScore())
+        for d in range(5, -1, -1):
+            digit = "0"
+            if d < len(digits):
+                digit = digits[len(digits)-d-1]
+            surface.blit(assets.letters[2][digit], (self._width*.75+16*(5-d) - 16*3, 32))
 
         limit = 30
         if self._frog.getTimer() > limit*30:

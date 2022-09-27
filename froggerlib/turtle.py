@@ -7,7 +7,7 @@ class Turtle(Rideable):
 
     def __init__(self, y, s):
         self._width = random.randint(2, 5)*32
-        self._countdown = random.randint(30*3, 30*8)
+        self._countdown = random.randint(30*5, 30*8)
         self._up = True
         self._sprite = assets.turts[1]
         x = 0
@@ -39,7 +39,7 @@ class Turtle(Rideable):
                 self._sprite = assets.turts[3]
             elif self._countdown == -1:
                 self._sprite = assets.turts[1]
-                self._countdown = random.randint(30*3, 30*6)
+                self._countdown = random.randint(30*5, 30*8)
                 self._up = True
         else:
             self._countdown -= 1
