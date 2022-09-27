@@ -15,7 +15,26 @@ class Frog(PlayerControllable):
         self._frame = 0
         self._death_frame = 0
         self._tick_divisor = 0
+        self._timer = 0
+        self._lives = 4
+        self._highest_y = y
+        self._total_score = 0
+        self._score = 0
         return
+    
+    def getScore(self):
+        return self._score
+    
+    def addScore(self, score):
+        self._score += score
+        self._total_score += score
+        return
+
+    def getLives(self):
+        return self._lives
+    
+    def getTimer(self):
+        return self._timer
 
     def getAlive(self):
         return not self._is_dead
@@ -24,6 +43,9 @@ class Frog(PlayerControllable):
         return self._ready_to_reset
 
     def reset(self):
+        if self._lives < 0:
+            return
+        self._score = 0
         self._is_dead = False
         self._ready_to_reset = False
         self._frame = 0
@@ -33,7 +55,12 @@ class Frog(PlayerControllable):
         self.setDesiredY(self._start_y)
         self.setX(self._start_x)
         self.setY(self._start_y)
+        self._timer = 0
+        self._highest_y = self._start_y
         return
+    
+    def getTotalScore(self):
+        return self._total_score
     
     def move(self):
         if not self.getRide():
@@ -51,6 +78,7 @@ class Frog(PlayerControllable):
             self._is_dead = True
             self._death_frame = 0
             self._tick_divisor = 0
+            self._lives -= 1
         return
     
     def up(self):
@@ -84,16 +112,26 @@ class Frog(PlayerControllable):
     def draw(self, surface):
         self._tick_divisor = (self._tick_divisor+1) % 5
         if self._is_dead:
+            if self._tick_divisor == 0:
+                self._death_frame += 1
             if self._death_frame < len(assets.death):
                 surface.blit(
                     assets.death[self._death_frame], (self.getX(), self.getY()))
-                if self._tick_divisor == 0:
-                    self._death_frame += 1
-            else:
+            elif self._death_frame == 10:
                 self._ready_to_reset = True
+                self.reset()
+            else:
                 surface.blit(assets.death[len(
                     assets.death)-1], (self.getX(), self.getY()))
-        else:
+        else:        
+            if self.getY() < self._highest_y and self.getDesiredY() == self.getY():
+                self._highest_y = self.getY()
+                self._score += 10
+                self._total_score += 10
+            self._timer += 1
+            if self._timer % 6 == 0:
+                self._score += 1
+                self._total_score += 1
             if self._frame % 2 == 1 and self._tick_divisor == 0:
                 self._frame -= 1
             surface.blit(
